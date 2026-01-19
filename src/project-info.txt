@@ -1,0 +1,45 @@
+Project File and Folder Descriptions
+====================================
+
+Root Files
+----------
+- index.html: The main entry point for your web application. It likely serves as the homepage, providing navigation to other sections like products, cart, and checkout.
+- project-info.txt: A documentation or notes file. It may contain project-specific information, instructions, or metadata for developers.
+
+Folders
+-------
+cart/
+  - index.html: The HTML page for the shopping cart. Displays items the user has added, allows for review, and possibly editing/removing items before checkout.
+
+checkout/
+  - index.html: The HTML page for the checkout process. Handles user input for shipping, payment, and order confirmation.
+
+css/
+  - style.css: The main stylesheet for the site. Controls the visual appearance, layout, and responsive design of all pages.
+
+images/
+  - logos/: Contains brand or site logo images.
+  - tents/: Contains product images for tents, used in product listings and detail pages.
+
+js/
+  - cart.js: Handles the logic for displaying and managing the shopping cart. Reads cart data from localStorage, renders cart items, and manages cart interactions.
+  - main.js: Likely the main JavaScript entry point for the homepage or general site-wide scripts.
+  - product.js: Handles the logic for displaying a single product's details. Gets the product ID from the URL, fetches product data, and manages the "Add to Cart" functionality.
+  - ProductData.mjs: Contains the ProductData class, which is responsible for fetching and providing product data from the JSON files. Handles data retrieval and searching for products by ID.
+  - ProductDetails.mjs: Contains the ProductDetails class, which manages the display and interaction logic for a single product. Fetches product details, renders them to the page, and handles adding the product to the cart.
+  - utils.mjs: Contains utility functions used throughout the project, such as getting/setting localStorage, parsing URL parameters, and other helper methods.
+
+json/
+  - backpacks.json: Contains product data for backpacks, including details like name, price, colors, and descriptions.
+  - sleeping-bags.json: Contains product data for sleeping bags, structured similarly to the other product JSON files.
+  - tents.json: Contains product data for tents. Used by ProductData to provide tent information for product listings and detail pages.
+
+product_pages/
+  - cedar-ridge-rimrock-2.html: A product detail page for the Cedar Ridge Rimrock 2-person tent. Contains static HTML for this specific product.
+  - index.html: Likely a template or example product detail page, or a listing of all product detail pages.
+  - marmot-ajax-3.html: A product detail page for the Marmot Ajax 3-person tent.
+  - northface-alpine-3.html: A product detail page for the North Face Alpine Guide 3-person tent.
+  - northface-talus-4.html: A product detail page for the North Face Talus 4-person tent.
+
+test/
+  - product.test.js: Contains tests for product-related functionality, such as fetching product data, rendering product details, or cart interactions.
