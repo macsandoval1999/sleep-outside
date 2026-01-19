@@ -84,27 +84,30 @@ export function getParam(param) {
 // get the product id from the query string
 // =============================
 // This function retrieves the value of a specified query parameter from the URL's query string.
-// The reason why this works is because we have product pages with query parameters in the URL. 
+// The reason why this works is because we have product pages with query parameters in the URL.
 // For example, a URL like "product.html?id=123" would allow us to retrieve the value "123" for the "id" parameter. If the URL does not contain the specified parameter, the function will return null.
 // Takes the name of the query parameter as a string.
 // Returns the value of the query parameter, or null if the parameter does not exist.
 
 
 
-export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
-  const htmlStrings = list.map(template); // generate an array of HTML strings using the template function.
-  // if clear is true, we need to clear out the contents of the parent. It is true by default, but can be overridden by passing false if we want to append to the existing content instead of replacing it.
-  if (clear) {
-    parentElement.innerHTML = "";
-  }
-  // insert the generated HTML strings into the parent element at the specified position. Default is "afterbegin" which again means at the beginning of the parent element.
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
-}
-// Renders a list of items using a provided template function
-// =============================
-// This function takes a template function, a parent element, and a list of items to render.
-// position parameter specifies where to insert the HTML (default is "afterbegin"), which determines the position relative to the parent element's existing content. This means "afterbegin" will insert the HTML at the beginning of the parent element, while "beforeend" will insert it at the end.
-// clear parameter specifies whether to clear the parent element before rendering (default is false). If true, the parent element's existing content will be removed before inserting the new HTML. In this case, the new HTML will replace the existing content.
-// It generates HTML strings for each item using the template function and inserts them into the parent element.
-// Takes an optional position parameter to specify where to insert the HTML (default is "afterbegin").
-// Takes an optional clear parameter to specify whether to clear the parent element before rendering (default is false).
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+/*==================================
+Description: Renders a list of items using a provided template function
+Parameters:
+- templateFn: A function that takes an item and returns an HTML string.
+- parentElement: The DOM element where the list will be rendered.
+- list: An array of items to render.
+- position: Optional. Specifies where to insert the HTML (default is "afterbegin").
+- clear: Optional. Specifies whether to clear the parent element before rendering (default is false).
+Returns/Purpose: 
+- void
+- Inserts the generated HTML into the parent element at the specified position.
+==================================*/
+	
+	const htmlStrings = list.map(templateFn);
+	if (clear) {
+		parentElement.innerHTML = "";
+	}
+	parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+};

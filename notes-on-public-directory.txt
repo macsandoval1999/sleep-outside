@@ -1,0 +1,10 @@
+Vite automatically serves a directory named public at the root of your project as static assets. 
+Any files placed in the public directory are copied as-is to the root of the dist folder during 
+build and are served at the root URL during development.
+
+You do not need to configure this—Vite looks for a folder named public by default. 
+For example, a file at public/robots.txt will be available at 
+http://localhost:5173/robots.txt in dev and at /robots.txt in your production build.
+
+If you want to change this behavior, you can configure the publicDir option in your 
+vite.config.js, but by default, Vite always uses the public directory at the project root.
