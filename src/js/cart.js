@@ -1,4 +1,6 @@
-import { getLocalStorage } from "./utils.mjs";
+import { countCartItems, getLocalStorage } from "./utils.mjs";
+
+
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
@@ -53,6 +55,7 @@ Remove an item from the cart by its ID
   localStorage.setItem("so-cart", JSON.stringify(updatedCart));
   renderCartContents();
   getCartTotal();
+  countCartItems();
 }
 // Handle click event for removing items from the cart
 document.addEventListener("click", (event) => {
@@ -62,5 +65,8 @@ document.addEventListener("click", (event) => {
   }
 });
 
+
+
+countCartItems();
 renderCartContents();
 getCartTotal();

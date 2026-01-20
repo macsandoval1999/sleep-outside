@@ -1,4 +1,4 @@
-import { getParam } from "./utils.mjs";
+import { getParam, countCartItems } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
@@ -11,3 +11,7 @@ const dataSource = new ProductData("tents");
 // Create an instance of ProductDetails with the productId and dataSource
 const product = new ProductDetails(productId, dataSource);
 product.init();
+
+
+
+countCartItems();

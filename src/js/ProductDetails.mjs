@@ -18,7 +18,7 @@ For this module, we need utility functions to interact with local storage.
 getLocalStorage: Retrieves data from local storage by key.
 setLocalStorage: Sets updated LocalStorage 
 */
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { countCartItems, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 
 
@@ -64,6 +64,7 @@ Methods:
         const cartItems = getLocalStorage("so-cart") || []; // Retrieve existing cart items from local storage or initialize an empty array
         cartItems.push(this.product); // Add the current product to the cart items array
         setLocalStorage("so-cart", cartItems); // Update local storage with the new cart items array
+        countCartItems();
     }
 
     // Method to render product details to the page
