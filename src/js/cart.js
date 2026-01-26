@@ -1,6 +1,6 @@
-import { countCartItems, getLocalStorage } from "./utils.mjs";
+import { countCartItems, getLocalStorage, loadHeaderFooter } from "./utils.mjs";
 
-
+loadHeaderFooter();
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
@@ -65,8 +65,5 @@ document.addEventListener("click", (event) => {
   }
 });
 
-
-
-countCartItems();
 renderCartContents();
 getCartTotal();

@@ -124,3 +124,65 @@ export function countCartItems() {
 		cartCountBadge.classList.remove("hide");
 	}
 }
+
+
+
+export function renderWithTemplate(template, parentElement, data, callback) {
+  /*==================================
+Description: Renders HTML content using a template string and inserts it into a parent element
+Parameters:
+  - template: A string containing HTML markup.
+  - parentElement: The DOM element where the HTML will be inserted.
+  - data: An optional data object to be passed to the callback function.
+  - callback: An optional function to be executed after rendering.
+Returns/Purpose: 
+  - void
+  - Replaces the content of the parent element with the generated HTML.
+  - Executes the callback function with the provided data, if specified.
+  ==================================*/
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+};
+
+
+
+async function loadTemplate(url) {
+/* 
+Description: Loads an HTML template from a specified URL
+Parameters:
+  - url: A string representing the URL of the HTML template to be loaded.
+Returns/Purpose:
+  - A promise that resolves to the loaded HTML template as a string.
+  - Fetches the HTML content from the specified URL and returns it as a string for further processing or rendering.
+=============================
+*/
+  const result = await fetch(url);
+  const template = await result.text();
+  return template;
+}
+
+
+
+export async function loadHeaderFooter() {
+/* 
+=============================
+Description: Loads and renders header and footer templates into the main document
+Parameters:
+  - None
+Returns/Purpose:
+  - void
+  - Fetches the header and footer HTML templates from specified URLs.
+  - Renders the fetched templates into the designated header and footer elements in the main document.
+=============================
+*/
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const headerElement = document.getElementById("main-header");
+  const footerElement = document.getElementById("main-footer");
+
+  renderWithTemplate(headerTemplate, headerElement, );
+  renderWithTemplate(footerTemplate, footerElement,);
+  countCartItems();
+}
