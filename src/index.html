@@ -29,10 +29,49 @@
         </div>
       </div>
 
-      <section class="products">
-        <h2>Top Products</h2>
-        <ul class="product-list"></ul>
+      <!-- Technically you could generate this list dynamically like you do the product cards doing a similar function like productCartTemplate found in product-listing.js. But for this activity, we'll keep it simple and static. -->
+      <section class="categories">
+        <h2>Categories</h2>
+        <ul class="category-list">
+          <li class="category-card">
+            <a href="product_listing/index.html?category=tents" class="category-card__image">
+              <img
+                src="/images/logos/tents-logo.svg"
+                alt="Tents Category"
+              />
+              <h2 class="card__name">Tents</h2>
+            </a>
+          </li>
+          <li class="category-card">
+            <a href="product_listing/index.html?category=backpacks" class="category-card__image">
+              <img
+                src="/images/logos/backpacks-logo.svg"
+                alt="Backpacks Category"
+              />
+              <h2 class="card__name">Backpacks</h2>
+            </a>
+          </li>
+          <li class="category-card">
+            <a href="product_listing/index.html?category=sleeping-bags" class="category-card__image">
+              <img
+                src="/images/logos/sleepingbag-logo.svg"
+                alt="Sleeping Bags Category"
+              />
+              <h2 class="card__name">Sleeping Bags</h2>
+            </a>
+          </li>
+          <li class="category-card">
+            <a href="product_listing/index.html?category=hammocks" class="category-card__image">
+              <img
+                src="/images/logos/hammock-logo.svg"
+                alt="Hammocks Category"
+              />
+              <h2 class="card__name">Hammocks</h2>
+            </a>
+          </li>
+        </ul>
       </section>
+
     </main>
     <footer id="main-footer"></footer>
   </body>

@@ -22,7 +22,7 @@ export function qs(selector, parent = document) {
 
 
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key)); 
+  return JSON.parse(localStorage.getItem(key));
 }
 // retrieve data from localstorage
 // =============================
@@ -33,18 +33,18 @@ export function getLocalStorage(key) {
 
 
 export function setLocalStorage(key, data) {
-/*=============================
-Description:
-Save data to local storage
-Takes a key and a data object as parameters and saves the data to localStorage.
-The data is stringified to JSON before being stored. This means that complex data structures like objects and arrays can be stored as strings. When retrieving the data, it should be parsed back into its original form. We have a corresponding getLocalStorage function for this purpose.
-Parameters:
-  - key: The key under which the data will be stored in localStorage.
-  - data: The data object to be stored in localStorage.
-Returns:
-  - None
-=============================*/
-  
+  /*=============================
+  Description:
+  Save data to local storage
+  Takes a key and a data object as parameters and saves the data to localStorage.
+  The data is stringified to JSON before being stored. This means that complex data structures like objects and arrays can be stored as strings. When retrieving the data, it should be parsed back into its original form. We have a corresponding getLocalStorage function for this purpose.
+  Parameters:
+    - key: The key under which the data will be stored in localStorage.
+    - data: The data object to be stored in localStorage.
+  Returns:
+    - None
+  =============================*/
+
   localStorage.setItem(key, JSON.stringify(data));
 }
 
@@ -52,19 +52,19 @@ Returns:
 
 
 export function setClick(selector, callback) {
-/*=============================
-Description:
-Set a listener for both touchend and click
-This function sets up event listeners for both touchend and click events on a specified element.
-It ensures that the callback is triggered for both types of interactions, providing a consistent experience across touch and non-touch devices.
-Takes a CSS selector string and a callback function to be executed when the element is interacted with.
-
-Parameters:
-  - selector: A CSS selector string identifying the element to attach the event listeners to.
-  - callback: A function to be executed when the element is interacted with.
-Returns:
-  - None
-=============================*/
+  /*=============================
+  Description:
+  Set a listener for both touchend and click
+  This function sets up event listeners for both touchend and click events on a specified element.
+  It ensures that the callback is triggered for both types of interactions, providing a consistent experience across touch and non-touch devices.
+  Takes a CSS selector string and a callback function to be executed when the element is interacted with.
+  
+  Parameters:
+    - selector: A CSS selector string identifying the element to attach the event listeners to.
+    - callback: A function to be executed when the element is interacted with.
+  Returns:
+    - None
+  =============================*/
 
   qs(selector).addEventListener("touchend", (event) => { // Using the qs utility function, we select the element and add a touchend event listener. A touchend event is triggered when a touch point is removed from the touch surface. This means the user has finished touching the element.
     event.preventDefault(); // When a touchend event occurs, we prevent the default behavior to avoid triggering a click event immediately after by using the built-in preventDefault method which stops the default action associated with the event.
@@ -92,37 +92,40 @@ export function getParam(param) {
 
 
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
-/*==================================
-Description: Renders a list of items using a provided template function
-Parameters:
-- templateFn: A function that takes an item and returns an HTML string.
-- parentElement: The DOM element where the list will be rendered.
-- list: An array of items to render.
-- position: Optional. Specifies where to insert the HTML (default is "afterbegin").
-- clear: Optional. Specifies whether to clear the parent element before rendering (default is false).
-Returns/Purpose: 
-- void
-- Inserts the generated HTML into the parent element at the specified position.
-==================================*/
-	
-	const htmlStrings = list.map(templateFn);
-	if (clear) {
-		parentElement.innerHTML = "";
-	}
-	parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+  /*==================================
+  Description: Renders a list of items using a provided template function
+  Parameters:
+  - templateFn: A function that takes an item and returns an HTML string.
+  - parentElement: The DOM element where the list will be rendered.
+  - list: An array of items to render.
+  - position: Optional. Specifies where to insert the HTML (default is "afterbegin").
+  - clear: Optional. Specifies whether to clear the parent element before rendering (default is false).
+  Returns/Purpose: 
+  - void
+  - Inserts the generated HTML into the parent element at the specified position.
+  ==================================*/
+
+  const htmlStrings = list.map(templateFn);
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 };
 
 
 export function countCartItems() {
-	const cartCountBadge = document.querySelector(".cart-count-badge");
-	const cartCount = document.querySelector(".cart-count");
-	const cartItems = getLocalStorage("so-cart") || [];
-	if (cartItems.length === 0) {
-		cartCountBadge.classList.add("hide");
-	} else {
-		cartCount.textContent = cartItems.length;
-		cartCountBadge.classList.remove("hide");
-	}
+  const cartCountBadge = document.querySelector(".cart-count-badge");
+  const cartCount = document.querySelector(".cart-count");
+  const cartItems = getLocalStorage("so-cart") || [];
+  if (!cartCountBadge || !cartCount) {
+    return;
+  }
+  if (cartItems.length === 0) {
+    cartCountBadge.classList.add("hide");
+  } else {
+    cartCount.textContent = cartItems.length;
+    cartCountBadge.classList.remove("hide");
+  }
 }
 
 
@@ -149,15 +152,15 @@ Returns/Purpose:
 
 
 async function loadTemplate(url) {
-/* 
-Description: Loads an HTML template from a specified URL
-Parameters:
-  - url: A string representing the URL of the HTML template to be loaded.
-Returns/Purpose:
-  - A promise that resolves to the loaded HTML template as a string.
-  - Fetches the HTML content from the specified URL and returns it as a string for further processing or rendering.
-=============================
-*/
+  /* 
+  Description: Loads an HTML template from a specified URL
+  Parameters:
+    - url: A string representing the URL of the HTML template to be loaded.
+  Returns/Purpose:
+    - A promise that resolves to the loaded HTML template as a string.
+    - Fetches the HTML content from the specified URL and returns it as a string for further processing or rendering.
+  =============================
+  */
   const result = await fetch(url);
   const template = await result.text();
   return template;
@@ -166,23 +169,23 @@ Returns/Purpose:
 
 
 export async function loadHeaderFooter() {
-/* 
-=============================
-Description: Loads and renders header and footer templates into the main document
-Parameters:
-  - None
-Returns/Purpose:
-  - void
-  - Fetches the header and footer HTML templates from specified URLs.
-  - Renders the fetched templates into the designated header and footer elements in the main document.
-=============================
-*/
-  const headerTemplate = await loadTemplate("../partials/header.html");
-  const footerTemplate = await loadTemplate("../partials/footer.html");
+  /* 
+  =============================
+  Description: Loads and renders header and footer templates into the main document
+  Parameters:
+    - None
+  Returns/Purpose:
+    - void
+    - Fetches the header and footer HTML templates from specified URLs.
+    - Renders the fetched templates into the designated header and footer elements in the main document.
+  =============================
+  */
+  const headerTemplate = await loadTemplate(new URL("../public/partials/header.html", import.meta.url));
+  const footerTemplate = await loadTemplate(new URL("../public/partials/footer.html", import.meta.url));
   const headerElement = document.getElementById("main-header");
   const footerElement = document.getElementById("main-footer");
 
-  renderWithTemplate(headerTemplate, headerElement, );
+  renderWithTemplate(headerTemplate, headerElement,);
   renderWithTemplate(footerTemplate, footerElement,);
   countCartItems();
 }

@@ -12,6 +12,10 @@ The only exported entity from this module is the ProductData class, which contai
 
 
 
+const baseURL = import.meta.env.VITE_SERVER_URL || "";
+
+
+
 function convertToJson(res) {
   if (res.ok) { // If the response is OK (status in the range 200-299)...
     return res.json(); // Convert the response to JSON
@@ -31,20 +35,22 @@ function convertToJson(res) {
 
 export default class ProductData {
   // Constructor to initialize category and JSON path. category object will have two properties: category name and path
-  constructor(category) { // Takes a category name as input
-    this.category = category; // Set the category name using the input
-    this.path = `../json/${this.category}.json`; // Set the JSON path based on the category name. This works because the JSON files are named after the categories.
+  constructor() { 
   }
   
   // Method to fetch product data from JSON file
-  getData() { 
-    return fetch(this.path).then(convertToJson).then((data) => data); // fetch product data, then convert to JSON, then return the data
+  async getData(category) {
+    const response = await fetch(`${baseURL}products/search/${category}`);
+    const data = await convertToJson(response);
+    return data.Result;
   }
   // Method to find a product by its ID
   // For asyn recap, check the bottom comments
   async findProductById(id) { // find a product by its ID
-    const products = await this.getData(); // fetch all products 
-    return products.find((item) => item.Id === id); // find and return the product with the matching ID
+    const response = await fetch(`${baseURL}product/${id}`);
+    const data = await convertToJson(response);
+    console.log(data.Result);
+    return data.Result;
   }
 }
 // =============================
