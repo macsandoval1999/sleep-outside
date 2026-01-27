@@ -9,7 +9,11 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
-  const imageSrc = item.Images?.PrimaryMedium || item.Images?.PrimaryLarge || item.Image || "/images/camping-products.jpg";
+  const imageSrc =
+    item.Images?.PrimaryMedium ||
+    item.Images?.PrimaryLarge ||
+    item.Image ||
+    "/images/camping-products.jpg";
   const newItem = `
   <li class="cart-card divider">
     <a href="#" class="cart-card__image">
