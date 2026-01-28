@@ -12,58 +12,89 @@ The only exported entity from this module is the ProductData class, which contai
 
 
 
-const baseURL = import.meta.env.VITE_SERVER_URL || "";
+const baseURL = import.meta.env.VITE_SERVER_URL || ""; // Base URL for the server, taken from environment variable or default to empty string. This allows flexibility in different deployment environments. This is useful for switching between development and production servers without changing the code. 
 
 
 
 function convertToJson(res) {
+// Utility function to convert fetch response to JSON
+// =============================
+// Description:
+// This function checks if the fetch response is OK (status in the range 200-299).
+// If the response is OK, it converts the response to JSON.
+// If the response is not OK, it throws an error with the message "Bad Response".
+// Takes a fetch response object as input and returns a promise that resolves to JSON data or rejects with an error.
+// Returns a promise that resolves to JSON data or rejects with an error.
+//Parameters:
+//   - res: The fetch response object to be converted to JSON.
+// Returns:
+//   - A promise that resolves to JSON data or rejects with an error.
+// USED IN: ProductData class methods to handle fetch responses when retrieving product data.
+// =============================
+
   if (res.ok) { // If the response is OK (status in the range 200-299)...
     return res.json(); // Convert the response to JSON
   } else { // Otherwise...
     throw new Error("Bad Response"); // Throw an error with the message "Bad Response"
   }
 }
-// Utility function to convert fetch response to JSON
-// =============================
-// This function checks if the fetch response is OK (status in the range 200-299).
-// If the response is OK, it converts the response to JSON.
-// If the response is not OK, it throws an error with the message "Bad Response".
-// Takes a fetch response object as input and returns a promise that resolves to JSON data or rejects with an error.
-// Returns a promise that resolves to JSON data or rejects with an error.
+
 
 
 
 export default class ProductData {
-  // Constructor to initialize category and JSON path. category object will have two properties: category name and path
-  constructor() { 
+/*=============================
+Product Data class
+Description:
+This class provides methods to fetch all products or find a specific product by its ID.
+Constructor Parameters:
+    - None
+Constructor Variables:
+    - None
+Methods:
+    - getData(): Fetches all product data from the JSON file.
+    - findProductById(id): Finds a specific product by its ID.
+==============================*/
+  
+  constructor() { // Initialize the ProductData class
   }
   
-  // Method to fetch product data from JSON file
   async getData(category) {
-    const response = await fetch(`${baseURL}products/search/${category}`);
-    const data = await convertToJson(response);
-    return data.Result;
+  // Method to fetch all product data from the JSON file
+  // =============================
+  // Description:
+  // This method fetches all product data for the specified category from the server.
+  // It constructs the URL using the baseURL and category, makes a fetch request, and converts the response to JSON.
+  // Parameters:
+  //   - category: The category of products to be fetched (e.g., "tents", "sleeping-bags").
+  // Returns:
+  //   - A promise that resolves to an array of product objects.
+  // USED IN: ProductList and ProductDetails classes to retrieve product data for rendering.
+  // =============================
+  
+    const response = await fetch(`${baseURL}products/search/${category}`); // Fetch product data for the specified category from the server
+    const data = await convertToJson(response); // Convert the response to JSON
+    return data.Result; // Return the array of product objects
   }
-  // Method to find a product by its ID
-  // For asyn recap, check the bottom comments
-  async findProductById(id) { // find a product by its ID
-    const response = await fetch(`${baseURL}product/${id}`);
-    const data = await convertToJson(response);
-    console.log(data.Result);
-    return data.Result;
+
+  async findProductById(id) { 
+  // Method to find a specific product by its ID
+  // =============================
+  // Description:
+  // This method fetches product data for a specific product ID from the server.
+  // It constructs the URL using the baseURL and product ID, makes a fetch request, and converts the response to JSON.
+  // Parameters:
+  //   - id: The ID of the product to be found.
+  // Returns:
+  //   - A promise that resolves to the product object with the specified ID.
+  // USED IN: ProductDetails class to retrieve details of a specific product for rendering.
+    // =============================
+    
+    const response = await fetch(`${baseURL}product/${id}`); // Fetch product data for the specified product ID from the server
+    const data = await convertToJson(response); // Convert the response to JSON
+    return data.Result; // Return the product object with the specified ID
   }
 }
-// =============================
-// ProductData class to fetch and manage product data
-// =============================
-// This class provides methods to fetch all products or find a specific product by its ID.
-// Constructor Variables: category
-//    -(name of the product category)
-//    - path (path to the JSON file containing product data)
-// Methods:
-//    - getData(): Fetches all product data from the JSON file.
-//    - findProductById(id): Finds a specific product by its ID.
-
 
 
 
